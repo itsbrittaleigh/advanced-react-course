@@ -3,11 +3,21 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
 
+import { perPage } from '../config';
+
 import Item from './Item';
+import Pagination from '../components/Pagination';
 
 const GET_ALL_ITEMS = gql`
-  query GET_ALL_ITEMS {
-    items {
+  query GET_ALL_ITEMS(
+    $skip: Int = 0,
+    $first: Int = ${perPage}
+  ) {
+    items(
+      first: $first,
+      skip: $skip,
+      orderBy: createdAt_DESC
+    ) {
       id
       title
       price
@@ -34,7 +44,11 @@ class Items extends Component {
   render() {
     return (
       <Center>
-        <Query query={GET_ALL_ITEMS}>
+        <Pagination page={this.props.page} />
+        <Query
+          query={GET_ALL_ITEMS}
+          variables={{ skip: this.props.page * perPage - perPage }}
+        >
           {({ data, error, loading }) => {
             if(loading) return <p>Loading...</p>;
             if(error) return <p>Error: {error.message}</p>;
@@ -45,6 +59,7 @@ class Items extends Component {
             );
           }}
         </Query>
+        <Pagination page={this.props.page} />
       </Center>
     );
   }
