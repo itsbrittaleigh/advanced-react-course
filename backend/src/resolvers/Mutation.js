@@ -39,7 +39,7 @@ const mutations = {
     
     // automatically sign user in using created user and cookies
     const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
-    context.response.cookie('token', {
+    context.response.cookie('token', token, {
       httpOnly: true,
       maxAge: 31536000000, // 1 year
     });
