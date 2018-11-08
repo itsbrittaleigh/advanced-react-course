@@ -57,6 +57,10 @@ const mutations = {
     });
     return user;
   },
+  signOut(parent, args, context, info) {
+    context.response.clearCookie('token');
+    return { message: 'Goodbye!' };
+  },
 };
 
 module.exports = mutations;
