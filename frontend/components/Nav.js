@@ -1,7 +1,5 @@
 import Link from 'next/link';
-
 import User from './User';
-
 import NavStyles from './styles/NavStyles';
 
 const Nav = () => (
