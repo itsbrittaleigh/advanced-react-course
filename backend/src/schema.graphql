@@ -30,6 +30,14 @@ type Mutation {
     password: String!
   ): User!
   signOut: SuccessMessage
+  requestReset(
+    email: String!
+  ): SuccessMessage
+  resetPassword(
+    resetToken: String!
+    password: String!
+    confirmPassword: String!
+  ): User!
 }
 
 type Query {
@@ -37,4 +45,12 @@ type Query {
   item(where: ItemWhereUniqueInput!): Item
   itemsConnection(where: ItemWhereInput): ItemConnection!
   me: User
+}
+
+# Redefining User from prisma.graphql so we are not exposing password reset fields to the client side
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  permissions: [Permission!]!
 }
