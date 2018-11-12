@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import RequestResetComponent from '../components/RequestReset';
 import SignInComponent from '../components/SignIn';
 import SignUpComponent from '../components/SignUp';
 
@@ -12,6 +13,7 @@ const SignUp = props => (
   <Columns>
     <SignUpComponent />
     <SignInComponent />
+    <RequestResetComponent />
   </Columns>
 );
 
